@@ -1,34 +1,114 @@
-class CustomElement extends HTMLElement {
+// task-scheduler.js
+class TaskScheduler extends HTMLElement {
   constructor() {
     super();
     const shadowRoot = this.attachShadow({ mode: "open" });
-    const template = document.getElementById("counter-template").content;
-    shadowRoot.appendChild(template.cloneNode(true));
-    this.countElement = shadowRoot.getElementById("count");
-    this.incrementButton = shadowRoot.getElementById("increment");
-    this.decrementButton = shadowRoot.getElementById("decrement");
+    shadowRoot.innerHTML = `
+    <style>
+      /* Custom styles for the Task Scheduler */
+      :host {
+        display: block;
+        font-family: Arial, sans-serif;
+      }
+      h2 {
+        text-align: center;
+        margin-bottom: 20px;
+        color: #333;
+      }
+      div {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+      }
+      input,
+      textarea,
+      button {
+        margin: 5px;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
+      input[type="datetime-local"] {
+        width: 230px;
+      }
+      button {
+        background-color: #007bff;
+        color: #fff;
+        cursor: pointer;
+      }
+      ul {
+        list-style: none;
+        padding: 0;
+        max-width: 400px;
+        margin: 0 auto;
+      }
+      li {
+        background-color: #f9f9f9;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        padding: 10px;
+        margin: 10px 0;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      li .delete-btn {
+        background-color: #dc3545;
+      }
+      li .delete-btn:hover {
+        background-color: #c82333;
+      }
+    </style>
+    <h2>Task Scheduler</h2>
+    <div>
+      <input type="text" placeholder="Task Name" id="taskName" />
+      <textarea placeholder="Task Details" id="taskDetails"></textarea>
+      <input type="datetime-local" id="taskDateTime" />
+      <button id="addTaskBtn">Add Task</button>
+    </div>
+    <ul id="taskList"></ul>
+  `;
 
-    this.count = 0;
+    this.taskListElement = shadowRoot.getElementById("taskList");
+    this.addTaskButton = shadowRoot.getElementById("addTaskBtn");
 
-    this.incrementButton.addEventListener("click", () => this.increment());
-    this.decrementButton.addEventListener("click", () => this.decrement());
-
-    this.render();
+    this.addTaskButton.addEventListener("click", () => this.addTask());
   }
 
-  increment() {
-    this.count++;
-    this.render();
+  addTask() {
+    const taskNameInput = this.shadowRoot.getElementById("taskName");
+    const taskDetailsInput = this.shadowRoot.getElementById("taskDetails");
+    const taskDateTimeInput = this.shadowRoot.getElementById("taskDateTime");
+
+    const taskName = taskNameInput.value.trim();
+    const taskDetails = taskDetailsInput.value.trim();
+    const taskDateTime = taskDateTimeInput.value;
+
+    if (taskName && taskDateTime) {
+      const taskElement = document.createElement("li");
+      taskElement.innerHTML = `
+        <strong>${taskName}</strong> - ${taskDetails} (${taskDateTime})
+        <button class="delete-btn">Delete</button>
+      `;
+
+      const deleteButton = taskElement.querySelector(".delete-btn");
+      deleteButton.addEventListener("click", () =>
+        this.deleteTask(taskElement)
+      );
+
+      this.taskListElement.appendChild(taskElement);
+
+      // Clear input fields after adding task
+      taskNameInput.value = "";
+      taskDetailsInput.value = "";
+      taskDateTimeInput.value = "";
+    }
   }
 
-  decrement() {
-    this.count--;
-    this.render();
-  }
-
-  render() {
-    this.countElement.textContent = this.count;
+  deleteTask(taskElement) {
+    this.taskListElement.removeChild(taskElement);
   }
 }
 
-customElements.define("custom-element", CustomElement);
+customElements.define("task-scheduler", TaskScheduler);
