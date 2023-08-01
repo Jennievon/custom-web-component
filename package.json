@@ -1,6 +1,6 @@
 {
-  "name": "custom-web-component",
-  "version": "1.0.1",
+  "name": "custom-task-web-component",
+  "version": "1.0.0",
   "main": "dist/index.min.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -8,14 +8,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Jennievon/custom-web-component.git"
+    "url": "git+https://github.com/Jennievon/custom-task-web-component.git"
   },
   "author": "Jennifer Echenim",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Jennievon/custom-web-component/issues"
+    "url": "https://github.com/Jennievon/custom-task-web-component/issues"
   },
-  "homepage": "https://github.com/Jennievon/custom-web-component#readme",
+  "homepage": "https://github.com/Jennievon/custom-task-web-component#readme",
   "keywords": [],
   "description": "",
   "devDependencies": {
