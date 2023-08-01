@@ -4,7 +4,6 @@ class TaskScheduler extends HTMLElement {
     const shadowRoot = this.attachShadow({ mode: "open" });
     shadowRoot.innerHTML = `
     <style>
-      /* Custom styles for the Task Scheduler */
       :host {
         display: block;
         font-family: Arial, sans-serif;
@@ -116,7 +115,6 @@ class TaskScheduler extends HTMLElement {
 
       this.taskListElement.appendChild(taskElement);
 
-      // Clear input fields after adding task
       taskNameInput.value = "";
       taskDetailsInput.value = "";
       taskDateTimeInput.value = "";
