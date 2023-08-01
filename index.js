@@ -1,4 +1,4 @@
-class MyCounter extends HTMLElement {
+class CustomElement extends HTMLElement {
   constructor() {
     super();
     const shadowRoot = this.attachShadow({ mode: "open" });
@@ -31,4 +31,4 @@ class MyCounter extends HTMLElement {
   }
 }
 
-customElements.define("my-counter", MyCounter);
+customElements.define("custom-element", CustomElement);
