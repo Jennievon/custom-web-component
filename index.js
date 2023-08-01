@@ -1,4 +1,3 @@
-// task-scheduler.js
 class TaskScheduler extends HTMLElement {
   constructor() {
     super();
@@ -74,6 +73,24 @@ class TaskScheduler extends HTMLElement {
     this.addTaskButton = shadowRoot.getElementById("addTaskBtn");
 
     this.addTaskButton.addEventListener("click", () => this.addTask());
+  }
+
+  connectedCallback() {
+    console.log("Task Scheduler connected to the DOM!");
+  }
+
+  disconnectedCallback() {
+    console.log("Task Scheduler disconnected from the DOM!");
+  }
+
+  attributeChangedCallback(name, oldValue, newValue) {
+    if (name === "title") {
+      this.shadowRoot.querySelector("h2").textContent = newValue;
+    }
+  }
+
+  static get observedAttributes() {
+    return ["title"];
   }
 
   addTask() {
