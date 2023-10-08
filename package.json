@@ -1,5 +1,5 @@
 {
-  "name": "custom-web-component",
+  "name": "custom-task-web-component",
   "version": "1.0.1",
   "main": "dist/index.min.js",
   "scripts": {
